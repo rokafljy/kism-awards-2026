@@ -528,6 +528,12 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
   color:rgba(10,26,16,.6);margin-bottom:6px;font-weight:500;
 }
 .apply-meta .mv{font-size:15px;font-weight:600;color:var(--ink);margin:0}
+.apply-meta .mv a{
+  color:inherit;text-decoration:underline;text-decoration-thickness:1px;
+  text-decoration-color:rgba(10,26,16,.32);text-underline-offset:4px;
+  transition:text-decoration-color .2s;
+}
+.apply-meta .mv a:hover{text-decoration-color:var(--ink)}
 
 /* 문의 카드의 접수 진행 상태 (히어로 상단 라이브 뱃지에서 옮겨옴) */
 .contact-card .v.live{
