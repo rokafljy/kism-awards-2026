@@ -1,45 +1,48 @@
 name: Deploy site to GitHub Pages
 
+# main 에 푸시되면 배포 대상 파일만 추려 gh-pages 브랜치로 강제 푸시합니다.
+# GitHub Pages 는 gh-pages 브랜치를 소스로 자동 활성화돼 있습니다.
+#
+# 왜 actions/deploy-pages 가 아닌가:
+#   deploy-pages 는 Pages 소스가 "GitHub Actions" 여야 하고, 그 전환에는
+#   저장소 관리자 권한이 필요합니다. 브랜치 방식은 GITHUB_TOKEN 의
+#   contents:write 만으로 동작해 별도 설정이 필요 없습니다.
+
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: pages
+  group: pages-deploy
   cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
-      # 정적 사이트라 빌드 단계가 없습니다. 배포할 파일만 추려서 올립니다.
-      # (design/·tools/ 는 참고·유틸리티라 배포에서 제외)
+      # 정적 사이트라 빌드 단계가 없습니다.
+      # design/ 과 tools/ 는 참고·유틸리티라 배포에서 제외합니다.
       - name: Stage site files
         run: |
           mkdir -p _site
           cp index.html robots.txt sitemap.xml _site/
           cp -r assets _site/
+          touch _site/.nojekyll
 
-      # enablement: true 면 저장소 설정에서 Pages 를 켜두지 않아도
-      # 이 워크플로가 처음 돌 때 자동으로 활성화합니다.
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Publish to gh-pages
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd _site
+          git init -q -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Deploy ${GITHUB_SHA::7}"
+          git push -q -f "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages

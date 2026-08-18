@@ -31,9 +31,15 @@ python3 -m http.server 8000
 **https://rokafljy.github.io/kism-awards-2026/**
 
 `.github/workflows/pages.yml`이 `main` 브랜치에 푸시될 때마다 `index.html`, `assets/`,
-`robots.txt`, `sitemap.xml`만 추려 GitHub Pages로 배포합니다. `actions/configure-pages`에
-`enablement: true`가 있어 저장소 설정에서 Pages를 따로 켜지 않아도 첫 실행 때 자동으로 켜집니다.
-`design/`과 `tools/`는 참고·유틸리티라 배포에서 제외됩니다.
+`robots.txt`, `sitemap.xml`만 추려 **`gh-pages` 브랜치로 강제 푸시**하고, GitHub Pages가
+그 브랜치를 서빙합니다. `design/`과 `tools/`는 참고·유틸리티라 배포에서 제외됩니다.
+
+편집은 항상 `main`에서 하세요. `gh-pages`는 워크플로가 매번 덮어쓰는 생성물이라
+거기서 직접 고친 내용은 다음 배포 때 사라집니다.
+
+> `actions/deploy-pages`(Pages 소스 = "GitHub Actions") 대신 브랜치 방식을 쓰는 이유는,
+> 그쪽이 소스 전환에 저장소 관리자 권한을 요구하기 때문입니다. 브랜치 방식은
+> `GITHUB_TOKEN`의 `contents: write`만으로 동작해 추가 설정이 필요 없습니다.
 
 Netlify·S3 등 다른 호스팅에 올릴 때도 같은 4개만 올리면 됩니다.
 
