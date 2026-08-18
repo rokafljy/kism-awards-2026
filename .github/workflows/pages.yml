@@ -1,0 +1,45 @@
+name: Deploy site to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # 정적 사이트라 빌드 단계가 없습니다. 배포할 파일만 추려서 올립니다.
+      # (design/·tools/ 는 참고·유틸리티라 배포에서 제외)
+      - name: Stage site files
+        run: |
+          mkdir -p _site
+          cp index.html robots.txt sitemap.xml _site/
+          cp -r assets _site/
+
+      # enablement: true 면 저장소 설정에서 Pages 를 켜두지 않아도
+      # 이 워크플로가 처음 돌 때 자동으로 활성화합니다.
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
