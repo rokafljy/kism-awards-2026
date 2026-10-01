@@ -58,7 +58,8 @@ Netlify·S3 등 다른 호스팅에 올릴 때도 같은 4개만 올리면 됩�
 
 | 항목 | 위치 |
 | --- | --- |
-| 시상식 카운트다운 기준 시각 | `assets/js/main.js`의 `CEREMONY` 상수 + `index.html`의 JSON-LD `startDate` |
+| 시상식 카운트다운 기준 시각 | `assets/js/main.js`의 `CEREMONY` 상수 + `index.html`의 JSON-LD `startDate` (현재 2026-11-06 13:00 KST) |
+| 시상식 일시·장소 안내 | `index.html`의 `#ceremony` 섹션 (평가 종료 후 접수 섹션을 대체) |
 | 시상 절차 4단계 일정 | `index.html`의 `.tstep` 블록 |
 | 역대 수상 기업 | `index.html`의 `.wpanel[data-panel="연도"]` 블록. 연도를 추가하려면 `.wtabs`에 버튼을, 아래에 같은 구조의 패널을 추가하고 `id`/`aria-controls`/`aria-labelledby`를 맞춰 주세요 |
 | 연락처·마감일 | `index.html`의 `.contact-card` 및 푸터 |
@@ -110,8 +111,7 @@ chromium --headless=new --window-size=1200,630 \
 
 시안 원문을 그대로 옮겼습니다. 다만 아래 두 가지는 주최 측 확인이 필요해 보입니다.
 
-- 심사 자료 기준이 **“2024 ~ 2025년 발간된 지속가능경영보고서”**로 되어 있습니다. 2026년 시상 기준으로는
-  2025~2026년 발간분이 맞는지 확인해 주세요. (`index.html`의 `.judging-note`와 접수 섹션 두 곳)
+- 심사 자료 기준은 **“2025 ~ 2026년 발간된 지속가능경영보고서”**로 반영돼 있습니다. (`index.html`의 `.judging-note`)
 - 히어로의 `3Y 누적 개최`, `24+ 수상 기업`은 역대 수상 목록(2023·2024·2025 / 총 24곳)과 일치합니다.
   2026년 개최분을 포함해 표기를 바꿀지 결정해 주세요.
 

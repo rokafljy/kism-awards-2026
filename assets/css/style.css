@@ -518,7 +518,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
 .footer p a{text-decoration:none;transition:color .2s}
 .footer p a:hover{color:var(--lime)}
 
-/* 접수 카드 하단 주최·주관·장소 (히어로 상단에서 옮겨옴) */
+/* 시상식 카드 하단 주최·주관·장소 (히어로 상단에서 옮겨옴) */
 .apply-meta{
   display:flex;flex-wrap:wrap;gap:20px 44px;
   margin-top:40px;padding-top:28px;border-top:1px solid rgba(10,26,16,.18);
@@ -535,7 +535,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
 }
 .apply-meta .mv a:hover{text-decoration-color:var(--ink)}
 
-/* 문의 카드의 접수 진행 상태 (히어로 상단 라이브 뱃지에서 옮겨옴) */
+/* 시상식 카드의 진행 상태 (히어로 상단 라이브 뱃지에서 옮겨옴) */
 .contact-card .v.live{
   display:inline-flex;align-items:center;gap:9px;
   color:var(--lime);font-family:'Space Grotesk';font-size:14px;letter-spacing:.02em;
@@ -575,3 +575,13 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
   .wpanel[hidden]{display:grid!important}
   a[href^="http"]::after{content:" (" attr(href) ")";font-size:11px}
 }
+
+/* 시상식 안내 보조 문구 */
+.apply-note{
+  font-size:15px;line-height:1.75;color:var(--ink-2);
+  padding-left:16px;border-left:2px solid rgba(10,26,16,.22);
+  margin-bottom:0
+}
+
+/* 시상식 카드: 장소처럼 줄바꿈이 들어가는 값의 줄간격 */
+.contact-card .v{line-height:1.5}

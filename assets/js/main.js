@@ -6,7 +6,7 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ── 시상식 카운트다운 ─────────────────────────────────────── */
-  var CEREMONY = new Date('2026-11-06T14:00:00+09:00').getTime();
+  var CEREMONY = new Date('2026-11-06T13:00:00+09:00').getTime();
 
   (function countdown() {
     var cd = document.getElementById('cd');
